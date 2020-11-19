@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<head>
+    <title>OnlineQuiz</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("#but1").click(function()
+            {
+                $(".rb").show();
+                $(".rb").attr("disabled",true);
+            });
+        });
+        function getanswer()
+        {
+            document.getElementById("UserAns").innerHTML="";
+            var e=document.getElementsByTagName('input');
+            for(i=0;i<e.length;i++)
+            {
+                if(e[i].type=="radio")
+                {
+                    if(e[i].checked)
+                    {
+                        document.getElementById("UserAns").innerHTML+="Q "+e[i].name+" The Answer you are Selected is :"+e[i].value+"<br/>";
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+    <div style="padding: 30px;">
+    {% for result in Quiz %}
+<table>
+    <tr>
+        <td>{{result.id}} {{result.Question}}</td>
+    </tr>
+    <tr>
+        <td><input type="radio" id="option1" class="rb" name="{{result.id}}" value="{{result.Option1}}">{{result.Option1}}</td>
+    </tr>
+    <tr>
+        <td><input type="radio" id="option2" class="rb" name="{{result.id}}" value="{{result.Option2}}">{{result.Option2}}</td>
+    </tr>
+    <tr>
+        <td><input type="radio" id="option3" class="rb" name="{{result.id}}" value="{{result.Option3}}">{{result.Option3}}</td>
+    </tr>
+    <tr>
+        <td><input type="radio" id="option4" class="rb" name="{{result.id}}" value="{{result.Option4}}">{{result.Option4}}</td>
+    </tr>
+    <tr>
+        <td><label id="corans" class="rb" style="display:none;color:green;"><b>The Correct Answer is :{{result.CorrectAns}}</b></label></td>
+    </tr>
+ 
+</table>
+    {% endfor %}
+<input type="submit" value="Click for results" id="but1" onclick="getanswer();"/>
+<hr/>
+<b id="UserAns"></b>
+<hr/>
+</div>
+</body>
+</html>
